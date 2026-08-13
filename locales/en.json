@@ -1,0 +1,149 @@
+{
+  "nav": {
+    "welcome": "Welcome",
+    "couple": "Couple",
+    "story": "Our Story",
+    "countdown": "Countdown",
+    "events": "Events",
+    "dresscode": "Dress Code",
+    "venue": "Venue",
+    "stay": "Stay",
+    "weather": "Weather",
+    "finale": "Celebrate",
+    "menu": "Open section menu",
+    "sections": "Section navigation"
+  },
+  "common": {
+    "groom": "Groom",
+    "bride": "Bride",
+    "and": "&",
+    "getDirections": "Get Directions",
+    "openInMaps": "Open in Maps",
+    "playMusic": "Play music",
+    "pauseMusic": "Pause music",
+    "scrollHint": "Scroll to continue",
+    "loading": "Loading…"
+  },
+  "welcome": {
+    "youreInvited": "You're Invited",
+    "tapToOpen": "Tap to open your invitation",
+    "invitation": "Wedding Invitation",
+    "tagline": "Two hearts, one beautiful journey."
+  },
+  "couple": {
+    "eyebrow": "The Couple",
+    "forever": "And so our forever begins..."
+  },
+  "story": {
+    "eyebrow": "Our Journey",
+    "title": "A Love Story",
+    "invite": "Together with our families, we invite you to celebrate our special day.",
+    "m1Title": "A Chance Meeting",
+    "m1Line": "Two paths crossed, and something beautiful began.",
+    "m2Title": "Falling in Love",
+    "m2Line": "Two hearts, one beautiful journey.",
+    "m3Title": "Saying Yes",
+    "m3Line": "And so our forever begins...",
+    "m4Title": "Our Wedding",
+    "m4Line": "21–23 August 2026 — surrounded by those we love."
+  },
+  "countdown": {
+    "surprise": "A little surprise awaits",
+    "scratchTitle": "Scratch to Reveal",
+    "specialDay": "Our Special Day",
+    "hint": "Swipe across the gold foil to unveil the live wedding countdown.",
+    "near": "Every heartbeat brings us closer.",
+    "until": "Until Sunday, 23 August 2026",
+    "days": "Days",
+    "hours": "Hours",
+    "mins": "Mins",
+    "secs": "Secs",
+    "closing": "We can't wait to celebrate with you!"
+  },
+  "events": {
+    "eyebrow": "The Sequence of Celebration",
+    "title": "Three Days of Joy",
+    "subtitle": "Five beautiful moments. One unforgettable celebration.",
+    "dressCodeLabel": "Dress code",
+    "addToCalendar": "Add to Calendar",
+    "navigateToVenue": "Navigate to Venue",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday",
+    "greenMorning": {
+      "title": "Green Morning",
+      "subtitle": "A morning wrapped in tradition",
+      "description": "A beautiful morning of traditions, blessings, green hues and joyful celebrations.",
+      "dressCode": "Green Outfit + Bangles",
+      "badge": "GREEN & BANGLES"
+    },
+    "haldi": {
+      "title": "Haldi Ceremony",
+      "subtitle": "An afternoon of sunshine and turmeric",
+      "description": "A vibrant celebration filled with turmeric, laughter, family and sunshine.",
+      "dressCode": "Yellow Outfit",
+      "badge": "HALDI"
+    },
+    "engagement": {
+      "title": "Engagement Ceremony",
+      "subtitle": "Two families, one beautiful beginning",
+      "description": "A special moment as two hearts and two families come together.",
+      "dressCode": "Traditional Elegant Attire",
+      "badge": "ENGAGEMENT"
+    },
+    "sangeet": {
+      "title": "Sangeet Night",
+      "subtitle": "An evening of music and celebration",
+      "description": "An evening of music, dance, laughter and unforgettable memories.",
+      "dressCode": "Party Wear / Festive Attire",
+      "badge": "SANGEET"
+    },
+    "wedding": {
+      "title": "The Wedding",
+      "subtitle": "The beginning of forever",
+      "description": "A sacred South Indian celebration surrounded by family, traditions and love.",
+      "dressCode": "Traditional South Indian Attire",
+      "badge": "TRADITIONAL"
+    }
+  },
+  "dresscode": {
+    "eyebrow": "Fashion Guide",
+    "title": "What to Wear",
+    "subtitle": "A South Indian colour story for each celebration"
+  },
+  "venue": {
+    "eyebrow": "Wedding Destination",
+    "address": "NV Convention Hall, Hanamkonda, Telangana"
+  },
+  "stay": {
+    "eyebrow": "Accommodation",
+    "address": "Hotel Varahi, Warangal, Telangana",
+    "photoPlaceholder": "Hotel photo placeholder"
+  },
+  "weather": {
+    "eyebrow": "A Glimpse of the Days Ahead",
+    "title": "Weather for Our Celebration",
+    "subtitle": "A little forecast for the days we're waiting to celebrate together.",
+    "day21": "Green Morning & Haldi",
+    "day22": "Engagement & Sangeet",
+    "day23": "The Wedding",
+    "feelsLike": "Feels like",
+    "humidity": "Humidity",
+    "wind": "Wind",
+    "rain": "Rain",
+    "loading": "Fetching the skies…",
+    "error": "Forecast will appear closer to the celebration — the joy remains unchanged.",
+    "unavailable": "Forecast not yet available",
+    "clear": "Clear skies",
+    "partlyCloudy": "Partly cloudy",
+    "foggy": "Foggy",
+    "rainPossible": "Rain possible",
+    "showers": "Showers",
+    "stormy": "Stormy skies"
+  },
+  "finale": {
+    "eyebrow": "With Love",
+    "closing": "We can't wait to celebrate with you!",
+    "signOff": "With Love, Kunal & Pravalika"
+  }
+}

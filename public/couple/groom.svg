@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 520" fill="none" role="img" aria-label="Groom portrait placeholder">
+  <defs>
+    <linearGradient id="gbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E8D5B7"/>
+      <stop offset="100%" stop-color="#F5D5C8"/>
+    </linearGradient>
+    <linearGradient id="gskin" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#E8C4A8"/>
+      <stop offset="100%" stop-color="#D4A888"/>
+    </linearGradient>
+    <linearGradient id="gsherwani" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5C3D2E"/>
+      <stop offset="100%" stop-color="#3A2418"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="520" rx="28" fill="url(#gbg)"/>
+  <ellipse cx="200" cy="490" rx="140" ry="40" fill="#C4A35A" opacity="0.18"/>
+  <!-- shoulders / sherwani -->
+  <path d="M70 520 C90 380 140 340 200 340 C260 340 310 380 330 520 Z" fill="url(#gsherwani)"/>
+  <path d="M175 350 L200 500 L225 350" stroke="#C4A35A" stroke-width="2" opacity="0.6"/>
+  <circle cx="200" cy="390" r="6" fill="#E6D4A8"/>
+  <circle cx="200" cy="420" r="5" fill="#E6D4A8"/>
+  <circle cx="200" cy="450" r="5" fill="#E6D4A8"/>
+  <!-- neck -->
+  <rect x="178" y="268" width="44" height="50" rx="12" fill="url(#gskin)"/>
+  <!-- head -->
+  <ellipse cx="200" cy="210" rx="78" ry="90" fill="url(#gskin)"/>
+  <!-- hair -->
+  <path d="M122 200 C125 120 175 95 200 95 C225 95 275 120 278 200 C260 155 230 145 200 145 C170 145 140 155 122 200 Z" fill="#2A1A12"/>
+  <!-- turban hint -->
+  <path d="M130 155 C145 105 255 105 270 155 C240 125 160 125 130 155 Z" fill="#C4A35A" opacity="0.85"/>
+  <ellipse cx="200" cy="120" rx="18" ry="10" fill="#E6D4A8"/>
+  <!-- eyes -->
+  <ellipse cx="172" cy="215" rx="8" ry="5" fill="#2A1A12"/>
+  <ellipse cx="228" cy="215" rx="8" ry="5" fill="#2A1A12"/>
+  <path d="M185 245 Q200 255 215 245" stroke="#A67C5D" stroke-width="2" stroke-linecap="round"/>
+  <text x="200" y="40" text-anchor="middle" fill="#9A7B3C" font-family="Georgia, serif" font-size="14" letter-spacing="3">GROOM</text>
+  <text x="200" y="505" text-anchor="middle" fill="#6B5A54" font-family="Georgia, serif" font-size="13" font-style="italic">Replace with your photo</text>
+</svg>

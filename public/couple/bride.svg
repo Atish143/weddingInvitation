@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 520" fill="none" role="img" aria-label="Bride portrait placeholder">
+  <defs>
+    <linearGradient id="bbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F3D6D8"/>
+      <stop offset="100%" stop-color="#D4CDE8"/>
+    </linearGradient>
+    <linearGradient id="bskin" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F0D0B8"/>
+      <stop offset="100%" stop-color="#DDB396"/>
+    </linearGradient>
+    <linearGradient id="blehenga" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#C45C6A"/>
+      <stop offset="100%" stop-color="#8B3A48"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="520" rx="28" fill="url(#bbg)"/>
+  <ellipse cx="200" cy="490" rx="150" ry="42" fill="#D4A5A5" opacity="0.25"/>
+  <!-- lehenga / blouse -->
+  <path d="M60 520 C85 360 130 330 200 330 C270 330 315 360 340 520 Z" fill="url(#blehenga)"/>
+  <path d="M120 360 Q200 390 280 360" stroke="#E6D4A8" stroke-width="2" opacity="0.7"/>
+  <circle cx="200" cy="370" r="5" fill="#E6D4A8"/>
+  <!-- neck / jewelry -->
+  <rect x="180" y="265" width="40" height="45" rx="12" fill="url(#bskin)"/>
+  <ellipse cx="200" cy="295" rx="42" ry="18" fill="none" stroke="#C4A35A" stroke-width="3"/>
+  <circle cx="200" cy="312" r="7" fill="#C4A35A"/>
+  <!-- head -->
+  <ellipse cx="200" cy="205" rx="76" ry="88" fill="url(#bskin)"/>
+  <!-- hair -->
+  <path d="M118 195 C120 105 165 85 200 85 C235 85 280 105 282 195 C265 140 235 125 200 125 C165 125 135 140 118 195 Z" fill="#1A0F0A"/>
+  <path d="M105 220 C100 280 120 340 145 360" stroke="#1A0F0A" stroke-width="28" stroke-linecap="round"/>
+  <path d="M295 220 C300 280 280 340 255 360" stroke="#1A0F0A" stroke-width="28" stroke-linecap="round"/>
+  <!-- maang tikka -->
+  <circle cx="200" cy="145" r="5" fill="#C4A35A"/>
+  <line x1="200" y1="100" x2="200" y2="140" stroke="#C4A35A" stroke-width="2"/>
+  <!-- eyes + bindi -->
+  <ellipse cx="172" cy="210" rx="8" ry="5" fill="#2A1A12"/>
+  <ellipse cx="228" cy="210" rx="8" ry="5" fill="#2A1A12"/>
+  <circle cx="200" cy="195" r="4" fill="#C45C6A"/>
+  <path d="M185 240 Q200 252 215 240" stroke="#A67C5D" stroke-width="2" stroke-linecap="round"/>
+  <!-- floral accent -->
+  <circle cx="95" cy="300" r="14" fill="#F3D6D8" opacity="0.9"/>
+  <circle cx="305" cy="300" r="14" fill="#D4CDE8" opacity="0.9"/>
+  <text x="200" y="40" text-anchor="middle" fill="#9A7B3C" font-family="Georgia, serif" font-size="14" letter-spacing="3">BRIDE</text>
+  <text x="200" y="505" text-anchor="middle" fill="#6B5A54" font-family="Georgia, serif" font-size="13" font-style="italic">Replace with your photo</text>
+</svg>
