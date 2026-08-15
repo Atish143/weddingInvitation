@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useMemo, useState } from "react";
-import { Scene } from "@/components/Scene";
-import { Sparkles } from "@/components/fx/Sparkles";
-import { LightRays } from "@/components/fx/LightRays";
-import { COUPLE } from "@/lib/wedding";
-import { useScrollRoot } from "@/lib/ScrollContext";
-import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
-import { useI18n } from "@/lib/i18n";
-import { useMusic } from "@/lib/MusicContext";
+import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useMemo, useState } from 'react';
+import { Scene } from '@/components/Scene';
+import { Sparkles } from '@/components/fx/Sparkles';
+import { LightRays } from '@/components/fx/LightRays';
+import { COUPLE } from '@/lib/wedding';
+import { useScrollRoot } from '@/lib/ScrollContext';
+import { usePrefersReducedMotion } from '@/lib/usePrefersReducedMotion';
+import { useI18n } from '@/lib/i18n';
+import { useMusic } from '@/lib/MusicContext';
 
-const OPENED_KEY = "wedding-envelope-opened";
+const OPENED_KEY = 'wedding-envelope-opened';
 
-type Phase = "closed" | "opening" | "opened";
+type Phase = 'closed' | 'opening' | 'opened';
 
 function SoftParticles({ denser = false }: { denser?: boolean }) {
   const dots = useMemo(
@@ -33,7 +33,7 @@ function SoftParticles({ denser = false }: { denser?: boolean }) {
       aria-hidden
       className="pointer-events-none absolute inset-0 z-[2] overflow-hidden"
     >
-      {dots.map((d) => (
+      {dots.map(d => (
         <span
           key={d.id}
           className="absolute rounded-full bg-[#B8923E]/60 blur-[1px] glow-breathe"
@@ -56,13 +56,13 @@ export function WelcomeScene() {
   const { playFromUserGesture } = useMusic();
   const reduced = usePrefersReducedMotion();
 
-  const [phase, setPhase] = useState<Phase>("closed");
+  const [phase, setPhase] = useState<Phase>('closed');
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     try {
-      if (sessionStorage.getItem(OPENED_KEY) === "1") {
-        setPhase("opened");
+      if (sessionStorage.getItem(OPENED_KEY) === '1') {
+        setPhase('opened');
       }
     } catch {
       /* ignore */
@@ -72,14 +72,14 @@ export function WelcomeScene() {
   }, []);
 
   const open = () => {
-    if (phase !== "closed") return;
+    if (phase !== 'closed') return;
 
     void playFromUserGesture();
 
-    setPhase("opening");
+    setPhase('opening');
 
     try {
-      sessionStorage.setItem(OPENED_KEY, "1");
+      sessionStorage.setItem(OPENED_KEY, '1');
     } catch {
       /* ignore */
     }
@@ -88,7 +88,7 @@ export function WelcomeScene() {
     // No auto-scroll — the user scrolls down themselves whenever ready.
     window.setTimeout(
       () => {
-        setPhase("opened");
+        setPhase('opened');
       },
       reduced ? 400 : 2200,
     );
@@ -123,10 +123,10 @@ export function WelcomeScene() {
     <Scene
       id="welcome"
       className="relative overflow-hidden bg-[#F7E8C5]"
-      petals={phase !== "closed"}
-      petalColors={["#E2D0A4", "#E8C4C8", "#B8923E", "#F7F1E8"]}
-      petalCount={phase === "opened" ? 10 : 16}
-      showHints={phase === "opened"}
+      petals={phase !== 'closed'}
+      petalColors={['#E2D0A4', '#E8C4C8', '#B8923E', '#F7F1E8']}
+      petalCount={phase === 'opened' ? 10 : 16}
+      showHints={phase === 'opened'}
     >
       {/* ============================================================
           WEDDING BACKGROUND
@@ -173,20 +173,30 @@ export function WelcomeScene() {
 
       <LightRays tone="gold" />
 
-      <SoftParticles denser={phase !== "closed"} />
+      <SoftParticles denser={phase !== 'closed'} />
 
-      <Sparkles
-        count={phase === "closed" ? 14 : 26}
-        color="#B8923E"
-      />
+      <Sparkles count={phase === 'closed' ? 14 : 26} color="#B8923E" />
 
       {/* ============================================================
           CONTENT
          ============================================================ */}
-
+      {/* <h1 className="text-names mt-3 font-display text-[#54251E] drop-shadow-[0_2px_3px_rgba(255,245,210,0.8)]">
+                With the Divine blessing
+                <span className="text-[#A87524]">Of</span>{" "}
+                Lord Venkatesha
+              </h1> */}
       <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-4 text-center">
+        <motion.h1
+          className="text-names mb-8 -mt-2 font-display text-[#54251E] drop-shadow-[0_2px_3px_rgba(255,245,210,0.8)] sm:-mt-4"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          With the Divine blessing <span className="text-[#A87524]">Of</span>{' '}
+          Lord Venkatesha
+        </motion.h1>
         <AnimatePresence mode="wait">
-          {phase === "opened" ? (
+          {phase === 'opened' ? (
             <motion.div
               key="opened"
               className="px-4"
@@ -195,23 +205,27 @@ export function WelcomeScene() {
               transition={{ duration: 0.7 }}
             >
               {/* Invitation text */}
+              <p className="text-eyebrow text-[#8A5A20]">
+                {/* {t("welcome.youreInvited")} */}
+                You are cordially invited to
+              </p>
 
               <p className="text-eyebrow text-[#8A5A20]">
-                {t("welcome.youreInvited")}
+                {/* {t("welcome.youreInvited")} */}
+                celebrate the wedding of
               </p>
 
               <h1 className="text-names mt-3 font-display text-[#54251E] drop-shadow-[0_2px_3px_rgba(255,245,210,0.8)]">
-                {COUPLE.partner1}{" "}
-                <span className="text-[#A87524]">&</span>{" "}
+                {COUPLE.partner1} <span className="text-[#A87524]">&</span>{' '}
                 {COUPLE.partner2}
               </h1>
 
               <p className="mx-auto mt-4 max-w-sm font-display text-lg italic text-[#70402A] drop-shadow-[0_1px_2px_rgba(255,248,225,0.8)] sm:text-xl">
-                {t("welcome.tagline")}
+                {t('welcome.tagline')}
               </p>
 
               <p className="mt-8 font-body text-xs font-medium tracking-wide text-[#5E3828]">
-                {t("common.scrollHint")} ↓
+                {t('common.scrollHint')} ↓
               </p>
             </motion.div>
           ) : (
@@ -222,7 +236,7 @@ export function WelcomeScene() {
               animate={{ opacity: 1, y: 0 }}
             >
               <p className="mb-5 text-eyebrow text-[#8A5A20]">
-                {t("welcome.youreInvited")}
+                {t('welcome.youreInvited')}
               </p>
 
               {/* ======================================================
@@ -232,22 +246,22 @@ export function WelcomeScene() {
               <button
                 type="button"
                 onClick={open}
-                disabled={phase !== "closed"}
-                aria-label={t("welcome.tapToOpen")}
+                disabled={phase !== 'closed'}
+                aria-label={t('welcome.tapToOpen')}
                 className={`relative ${
-                  phase === "closed" && !reduced ? "envelope-float" : ""
+                  phase === 'closed' && !reduced ? 'envelope-float' : ''
                 }`}
                 style={{ perspective: 1200 }}
               >
                 <motion.div
                   className="relative h-[10.5rem] w-[min(13.5rem,72vw)] sm:h-48 sm:w-64"
                   animate={
-                    phase === "opening" && !reduced
+                    phase === 'opening' && !reduced
                       ? { scale: 1.05, y: -8 }
                       : { scale: 1, y: 0 }
                   }
                   transition={{
-                    type: "spring",
+                    type: 'spring',
                     stiffness: 120,
                     damping: 18,
                   }}
@@ -258,15 +272,15 @@ export function WelcomeScene() {
                     className="absolute inset-0 overflow-hidden rounded-md border border-[#B8923E]/50 shadow-[0_24px_60px_rgba(80,45,10,0.3)]"
                     style={{
                       background:
-                        "linear-gradient(145deg, #F5E2B5 0%, #D8B56A 48%, #A87524 100%)",
+                        'linear-gradient(145deg, #F5E2B5 0%, #D8B56A 48%, #A87524 100%)',
                     }}
                   >
                     <div
                       className="absolute inset-0 opacity-30"
                       style={{
                         backgroundImage:
-                          "radial-gradient(circle at 20% 30%, #FFF8E7 1.2px, transparent 1.3px), radial-gradient(circle at 70% 60%, #8A5A20 1px, transparent 1.1px)",
-                        backgroundSize: "26px 26px, 20px 20px",
+                          'radial-gradient(circle at 20% 30%, #FFF8E7 1.2px, transparent 1.3px), radial-gradient(circle at 70% 60%, #8A5A20 1px, transparent 1.1px)',
+                        backgroundSize: '26px 26px, 20px 20px',
                       }}
                     />
                   </div>
@@ -281,7 +295,7 @@ export function WelcomeScene() {
                       rotate: -2,
                     }}
                     animate={
-                      phase === "opening"
+                      phase === 'opening'
                         ? {
                             y: -28,
                             opacity: 1,
@@ -305,7 +319,7 @@ export function WelcomeScene() {
                       </p>
 
                       <p className="mt-1 font-body text-[8px] font-medium uppercase tracking-[0.24em] text-[#A87524]">
-                        {t("welcome.invitation")}
+                        {t('welcome.invitation')}
                       </p>
                     </div>
                   </motion.div>
@@ -315,14 +329,12 @@ export function WelcomeScene() {
                   <motion.div
                     className="absolute left-0 right-0 top-0 z-10 origin-top"
                     style={{
-                      transformStyle: "preserve-3d",
-                      height: "52%",
+                      transformStyle: 'preserve-3d',
+                      height: '52%',
                     }}
                     initial={{ rotateX: 0 }}
                     animate={
-                      phase === "opening"
-                        ? { rotateX: -158 }
-                        : { rotateX: 0 }
+                      phase === 'opening' ? { rotateX: -158 } : { rotateX: 0 }
                     }
                     transition={{
                       delay: 0.2,
@@ -333,10 +345,9 @@ export function WelcomeScene() {
                     <div
                       className="h-full w-full shadow-md"
                       style={{
-                        clipPath:
-                          "polygon(0 0, 100% 0, 50% 100%)",
+                        clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
                         background:
-                          "linear-gradient(180deg, #F1D99F 0%, #B9822C 100%)",
+                          'linear-gradient(180deg, #F1D99F 0%, #B9822C 100%)',
                       }}
                     />
                   </motion.div>
@@ -347,7 +358,7 @@ export function WelcomeScene() {
                     <motion.div
                       className="relative flex h-14 w-14 items-center justify-center sm:h-16 sm:w-16"
                       animate={
-                        phase === "opening"
+                        phase === 'opening'
                           ? {
                               scale: 1.35,
                               opacity: 0,
@@ -361,7 +372,7 @@ export function WelcomeScene() {
                       }
                       transition={{ duration: 0.55 }}
                     >
-                      {phase === "closed" && !reduced && (
+                      {phase === 'closed' && !reduced && (
                         <span className="pulse-ring absolute inset-[-6px] rounded-full border border-[#B8923E]/70" />
                       )}
 
@@ -369,9 +380,9 @@ export function WelcomeScene() {
                         className="flex h-full w-full items-center justify-center rounded-full shadow-xl"
                         style={{
                           background:
-                            "radial-gradient(circle at 35% 30%, #FFF8E7 0%, #E2D0A4 42%, #A87524 100%)",
+                            'radial-gradient(circle at 35% 30%, #FFF8E7 0%, #E2D0A4 42%, #A87524 100%)',
                           clipPath:
-                            "polygon(50% 0%, 63% 8%, 75% 5%, 82% 16%, 94% 20%, 90% 35%, 100% 50%, 90% 65%, 94% 80%, 82% 84%, 75% 95%, 63% 92%, 50% 100%, 37% 92%, 25% 95%, 18% 84%, 6% 80%, 10% 65%, 0% 50%, 10% 35%, 6% 20%, 18% 16%, 25% 5%, 37% 8%)",
+                            'polygon(50% 0%, 63% 8%, 75% 5%, 82% 16%, 94% 20%, 90% 35%, 100% 50%, 90% 65%, 94% 80%, 82% 84%, 75% 95%, 63% 92%, 50% 100%, 37% 92%, 25% 95%, 18% 84%, 6% 80%, 10% 65%, 0% 50%, 10% 35%, 6% 20%, 18% 16%, 25% 5%, 37% 8%)',
                         }}
                       >
                         <span className="font-display text-[11px] font-semibold text-[#54251E] sm:text-xs">
@@ -386,7 +397,7 @@ export function WelcomeScene() {
               <motion.p
                 className="mt-6 font-body text-sm font-medium tracking-wide text-[#54251E] drop-shadow-[0_1px_2px_rgba(255,248,225,0.9)]"
                 animate={
-                  phase === "closed" && !reduced
+                  phase === 'closed' && !reduced
                     ? { opacity: [0.65, 1, 0.65] }
                     : { opacity: 0.85 }
                 }
@@ -395,7 +406,7 @@ export function WelcomeScene() {
                   repeat: Infinity,
                 }}
               >
-                ✦ {t("welcome.tapToOpen")} ✦
+                ✦ {t('welcome.tapToOpen')} ✦
               </motion.p>
             </motion.div>
           )}

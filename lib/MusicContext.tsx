@@ -26,7 +26,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
   const [available, setAvailable] = useState(false);
 
   useEffect(() => {
-    const audio = new Audio("/audio/wedding-music.mp3");
+    const audio = new Audio("/audio/wedding-music.mpeg");
     audio.loop = true;
     audio.volume = 0;
     audioRef.current = audio;

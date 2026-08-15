@@ -300,7 +300,7 @@ export function FinaleScene() {
             duration: 0.7,
           }}
         >
-          <p
+          {/* <p
             className="
               font-body
               text-[9px]
@@ -311,7 +311,7 @@ export function FinaleScene() {
             "
           >
             WITH LOVE
-          </p>
+          </p> */}
 
           <p
             className="

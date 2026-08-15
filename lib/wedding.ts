@@ -1,8 +1,8 @@
 /** Central personalization — swap placeholders here without touching scenes. */
 
 export const COUPLE = {
-  partner1: "Kunal",
-  partner2: "Pravalika",
+  partner1: "Pravalika",
+  partner2: "Kunal",
   monogram: "K ❤ P",
   signOff: "With Love, Kunal ❤ Pravalika",
   tagline: "Two hearts, one beautiful journey.",
@@ -242,7 +242,7 @@ export const SCENES = [
   { id: "events", label: "Events" },
   { id: "dresscode", label: "Dress Code" },
   { id: "venue", label: "Venue" },
-  { id: "stay", label: "Stay" },
+  { id: "stay", label: "Events" },
   { id: "weather", label: "Weather" },
   { id: "finale", label: "Celebrate" },
 ] as const;

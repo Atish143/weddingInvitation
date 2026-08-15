@@ -25,7 +25,7 @@ export function SectionHint({ prev, next }: Props) {
           type="button"
           aria-label={`${t(`nav.${prev.id}`)}`}
           onClick={() => goToScene(prev.id)}
-          className="pointer-events-auto glass flex h-10 w-10 items-center justify-center rounded-full text-sm font-medium text-ink shadow-sm"
+className="pointer-events-auto glass flex min-h-14 items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold tracking-wide text-ink shadow-sm bg-white/10 sm:text-base"
           whileTap={reduced ? undefined : { scale: 0.94 }}
         >
           ↑
@@ -38,12 +38,12 @@ export function SectionHint({ prev, next }: Props) {
           type="button"
           aria-label={t(`nav.${next.id}`)}
           onClick={() => goToScene(next.id)}
-          className="pointer-events-auto glass flex min-h-10 items-center gap-1.5 rounded-full px-3 py-2 text-[11px] font-medium tracking-wide text-ink shadow-sm sm:text-xs"
+         className="pointer-events-auto glass flex min-h-14 items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold tracking-wide text-ink shadow-sm bg-white/10 sm:text-base"
           animate={reduced ? undefined : { y: [0, 3, 0] }}
           transition={
             reduced
               ? undefined
-              : { duration: 2.2, repeat: Infinity, ease: "easeInOut" }
+              : { duration: 2, repeat: Infinity, ease: "easeInOut" }
           }
         >
           <span className="font-body">{t(`nav.${next.id}`)}</span>

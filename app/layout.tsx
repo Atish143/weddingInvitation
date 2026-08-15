@@ -29,9 +29,9 @@ const notoTelugu = Noto_Sans_Telugu({
 });
 
 export const metadata: Metadata = {
-  title: "Kunal & Pravalika — Wedding Invitation",
+  title: "Pravalika & Kunal — Wedding Invitation",
   description:
-    "Together with their families, Kunal & Pravalika invite you to celebrate — 21–23 August 2026, NV Convention Hall, Hanamkonda.",
+    "Together with their families, Pravalika & Kunal invite you to celebrate — 21–23 August 2026, NV Convention Hall, Hanamkonda.",
 };
 
 export default function RootLayout({

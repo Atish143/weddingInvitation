@@ -18,7 +18,7 @@ export function MusicToggle() {
           ? muted
             ? t("common.playMusic")
             : t("common.pauseMusic")
-          : "Add /public/audio/wedding-music.mp3"
+          : "Add /public/audio/wedding-music.mpeg"
       }
       className="glass relative flex h-11 w-11 items-center justify-center rounded-full text-ink shadow-md"
     >

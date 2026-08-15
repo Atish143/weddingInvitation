@@ -45,7 +45,7 @@ export function EventCard({ event, index, inView }: Props) {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={event.image}
-          alt={`${title} — Kunal & Pravalika`}
+          alt={`${title} — Pravalika & Kunal`}
           loading={index < 2 ? "eager" : "lazy"}
           decoding="async"
           className="h-full w-full object-cover transition-transform duration-[1.2s] ease-out hover:scale-[1.02]"
