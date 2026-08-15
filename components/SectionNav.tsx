@@ -6,7 +6,7 @@ import { SCENES, type SceneId } from "@/lib/wedding";
 import { useScrollRoot } from "@/lib/ScrollContext";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import { useI18n } from "@/lib/i18n";
-
+// j x,mc
 export function SectionNav() {
   const { goToScene, scrollRef } = useScrollRoot();
   const { t } = useI18n();
