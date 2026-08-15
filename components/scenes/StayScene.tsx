@@ -12,71 +12,266 @@ import { useI18n } from "@/lib/i18n";
 export function StayScene() {
   const { t } = useI18n();
   const { scrollRef } = useScrollRoot();
+
   const ref = useRef<HTMLDivElement | null>(null);
-  const inView = useInView(ref, { root: scrollRef, once: true, amount: 0.2 });
+
+  const inView = useInView(ref, {
+    root: scrollRef,
+    once: true,
+    amount: 0.2,
+  });
 
   return (
     <Scene
       id="stay"
-      className="bg-[radial-gradient(ellipse_at_top,#E5D9C8_0%,#F7F1E8_42%,#C8BFD9_100%)]"
+      className="relative overflow-hidden bg-[#eadff0]"
       petals
-      petalColors={["#E5D9C8", "#C8BFD9", "#E4D2B0"]}
+      petalColors={[
+        "#E7D2DD",
+        "#D7C5E2",
+        "#C9A66B",
+        "#E5D1C8",
+      ]}
       petalCount={6}
     >
-      <Sparkles count={8} color="#B8923E" />
+      {/* =====================================================
+          BACKGROUND
+          public/images/events/stayb.png
+         ===================================================== */}
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0"
+      >
+        <img
+          src="/images/events/stayb.png"
+          alt=""
+          className="h-full w-full object-cover object-center"
+        />
+      </div>
+
+      {/* Soft readability overlay */}
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute
+          inset-0
+          z-[1]
+          bg-[#fffaf5]/10
+        "
+      />
+
+      <Sparkles count={8} color="#B8924A" />
+
+      {/* =====================================================
+          CONTENT
+         ===================================================== */}
 
       <div
         ref={ref}
-        className="relative z-10 mx-auto flex w-full max-w-md flex-1 flex-col items-center justify-center"
+        className="
+          relative
+          z-10
+          mx-auto
+          flex
+          w-full
+          max-w-md
+          flex-1
+          flex-col
+          items-center
+          justify-center
+          px-4
+          py-6
+          sm:px-6
+        "
       >
-        <LotusBloom size={36} className="mb-1 text-burgundy" />
-        <p className="text-eyebrow text-burgundy">{t("stay.eyebrow")}</p>
-        <h2 className="text-section mt-1 font-display font-semibold text-charcoal">
-          {STAY.name}
-        </h2>
-        <p className="mt-1 font-body text-sm font-medium text-ink-muted">{STAY.city}</p>
+        {/* Heading */}
+        <motion.div
+          className="mb-4 text-center"
+          initial={{
+            opacity: 0,
+            y: 15,
+          }}
+          animate={
+            inView
+              ? {
+                  opacity: 1,
+                  y: 0,
+                }
+              : {}
+          }
+          transition={{
+            duration: 0.7,
+          }}
+        >
+          <LotusBloom
+            size={32}
+            className="mx-auto mb-1 text-[#714356]"
+          />
+
+          <p
+            className="
+              font-body
+              text-[14px]
+              font-semibold
+              uppercase
+               tracking-[0.20em]
+              text-[#714356]
+              margin-top-[12px]
+            "
+          >
+            {t("stay.eyebrow")}
+          </p>
+
+          <h2
+            className="
+              mt-1
+              font-display
+              text-[2rem]
+              font-semibold
+              leading-tight
+              text-[#342828]
+              sm:text-4xl
+            "
+          >
+            {STAY.name}
+          </h2>
+
+          <p
+            className="
+              mt-1
+              font-body
+              text-sm
+              font-medium
+              text-[#5f5757]
+            "
+          >
+            {STAY.city}
+          </p>
+
+          <div className="mt-2 flex items-center justify-center gap-2">
+            <span className="h-px w-8 bg-gradient-to-r from-transparent to-[#B8924A]" />
+
+            <span className="text-[9px] text-[#B8924A]">
+              ✦
+            </span>
+
+            <span className="h-px w-8 bg-gradient-to-l from-transparent to-[#B8924A]" />
+          </div>
+        </motion.div>
+
+        {/* =====================================================
+            STAY CARD
+           ===================================================== */}
 
         <motion.div
-          className="mt-4 w-full"
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={inView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.55 }}
+          className="
+            w-full
+            overflow-hidden
+            rounded-[24px]
+            border
+            border-[#B8924A]/30
+            bg-[#FFF9F3]/88
+            shadow-[0_18px_50px_rgba(85,65,80,0.15)]
+            backdrop-blur-[3px]
+          "
+          initial={{
+            opacity: 0,
+            y: 20,
+            scale: 0.97,
+          }}
+          animate={
+            inView
+              ? {
+                  opacity: 1,
+                  y: 0,
+                  scale: 1,
+                }
+              : {}
+          }
+          transition={{
+            duration: 0.6,
+            delay: 0.12,
+          }}
         >
-          <div className="premium-card overflow-hidden bg-gradient-to-br from-ivory via-cream to-lavender/35">
-            <div className="relative flex aspect-[16/9] items-end justify-center overflow-hidden bg-gradient-to-b from-lavender/45 to-beige/70">
-              <div
-                aria-hidden
-                className="absolute inset-x-8 bottom-0 top-10 rounded-t-3xl border border-gold/30 bg-ivory/75 shadow-inner"
-              />
-              <div className="absolute left-1/2 top-5 z-10 -translate-x-1/2 text-2xl pin-bounce">
-                🏨
-              </div>
-              <p className="relative z-10 mb-3 font-body text-xs font-medium text-ink-muted">
-                {t("stay.photoPlaceholder")}
-              </p>
-            </div>
-            <div className="p-4 text-center">
-              <p className="font-display text-xl font-semibold text-charcoal">{STAY.name}</p>
-              <p className="mt-1 text-body-readable text-ink">{t("stay.address")}</p>
-              <div className="mt-3 aspect-[16/10] overflow-hidden rounded-2xl border border-gold/25">
+          {/* Hotel information */}
+        
+
+          {/* Map */}
+          <div className="px-3 pb-3 pt-3">
+            <div
+              className="
+                overflow-hidden
+                rounded-[18px]
+                border
+                border-[#B8924A]/25
+                bg-[#E8E1E8]
+                shadow-inner
+              "
+            >
+              <div className="aspect-[16/10]">
                 <iframe
                   title={STAY.title}
-                  src={`https://www.google.com/maps?q=${encodeURIComponent(STAY.query)}&output=embed`}
+                  src={`https://www.google.com/maps?q=${encodeURIComponent(
+                    STAY.query,
+                  )}&output=embed`}
                   className="h-full w-full border-0"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                 />
               </div>
-              <a
-                href={STAY.mapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary mt-3"
-              >
-                {t("common.getDirections")}
-              </a>
             </div>
           </div>
+
+          {/* CTA */}
+          <div className="px-4 pb-4">
+            <a
+              href={STAY.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="
+                flex
+                min-h-11
+                w-full
+                items-center
+                justify-center
+                rounded-full
+                bg-[#714356]
+                px-5
+                py-2.5
+                font-body
+                text-sm
+                font-semibold
+                text-white
+                shadow-[0_8px_22px_rgba(113,67,86,0.22)]
+                transition
+                hover:bg-[#64394b]
+                active:scale-[0.98]
+              "
+            >
+              {t("common.getDirections")}
+            </a>
+          </div>
+        </motion.div>
+
+        {/* Bottom ornament */}
+        <motion.div
+          className="mt-4 flex items-center gap-2"
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{
+            delay: 0.65,
+            duration: 0.6,
+          }}
+        >
+          <span className="h-px w-8 bg-gradient-to-r from-transparent to-[#B8924A]/60" />
+
+          <span className="text-[9px] text-[#B8924A]">
+            ✦
+          </span>
+
+          <span className="h-px w-8 bg-gradient-to-l from-transparent to-[#B8924A]/60" />
         </motion.div>
       </div>
     </Scene>

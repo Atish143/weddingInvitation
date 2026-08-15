@@ -11,7 +11,7 @@ const CARD_BG: Record<WeddingEvent["theme"], string> = {
   green: "bg-gradient-to-b from-[#F7F1E7] via-[#EEF3EC] to-[#F7F1E7]",
   haldi: "bg-gradient-to-b from-[#FFF8E8] via-[#FDF0C8] to-[#F7F1E7]",
   engagement: "bg-gradient-to-b from-[#FBF6F0] via-[#F5EBE4] to-[#F7F1E7]",
-  sangeet: "bg-gradient-to-b from-[#2E3D2C] via-[#3A4A38] to-[#2E3D2C]",
+  sangeet: "bg-gradient-to-b from-[#F7F1E7] via-[#EEF3EC] to-[#F7F1E7]",
   wedding: "bg-gradient-to-b from-[#F7F1E7] via-[#F5EBE8] to-[#EADBC8]",
 };
 
@@ -23,7 +23,7 @@ type Props = {
 
 export function EventCard({ event, index, inView }: Props) {
   const { t } = useI18n();
-  const isDark = event.theme === "sangeet";
+  const isDark = false;
   const title = t(event.titleKey);
   const description = t(event.descriptionKey);
 
@@ -39,7 +39,7 @@ export function EventCard({ event, index, inView }: Props) {
       transition={{ delay: 0.1 * index, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
     >
       {/* Image — ~50% visual weight */}
-      <div className="relative aspect-[4/3] w-full overflow-hidden sm:aspect-[16/10]">
+<div className="relative aspect-[4/3.5] w-full overflow-hidden sm:aspect-[4/3.5]">
         <EventCardFrame theme={event.theme} />
         <EventImageDecor theme={event.theme} />
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -137,7 +137,7 @@ export function EventCard({ event, index, inView }: Props) {
             <CalendarIcon />
             {t("events.addToCalendar")}
           </button>
-          <a
+          {/* <a
             href={event.mapsUrl}
             target="_blank"
             rel="noopener noreferrer"
@@ -145,7 +145,7 @@ export function EventCard({ event, index, inView }: Props) {
           >
             <MapPinIcon />
             {t("events.navigateToVenue")}
-          </a>
+          </a> */}
         </div>
       </div>
     </motion.article>

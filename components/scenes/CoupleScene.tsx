@@ -3,8 +3,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Scene } from "@/components/Scene";
-import { CouplePortrait } from "@/components/CouplePortrait";
-import { PeacockFeather } from "@/components/fx/PeacockFeather";
 import { Sparkles } from "@/components/fx/Sparkles";
 import { OrnateCorners } from "@/components/fx/OrnateCorners";
 import { LotusBloom } from "@/components/fx/LotusBloom";
@@ -16,126 +14,323 @@ import { useI18n } from "@/lib/i18n";
 export function CoupleScene() {
   const { t } = useI18n();
   const { scrollRef } = useScrollRoot();
+
   const ref = useRef<HTMLDivElement | null>(null);
-  const inView = useInView(ref, { root: scrollRef, once: true, amount: 0.2 });
+
+  const inView = useInView(ref, {
+    root: scrollRef,
+    once: true,
+    amount: 0.2,
+  });
+
   const reduced = usePrefersReducedMotion();
 
   return (
     <Scene
       id="couple"
-      className="bg-[radial-gradient(ellipse_at_top,#E8C4C8_0%,#F7F1E8_42%,#E4D2B0_100%)]"
+      className="relative overflow-hidden bg-[#f8eee3]"
       petals
-      petalColors={["#E8C4C8", "#E4D2B0", "#B8923E", "#C8BFD9"]}
-      petalCount={10}
+      petalColors={[
+        "#E8C4C8",
+        "#E4D2B0",
+        "#B8923E",
+        "#E9B8B8",
+      ]}
+      petalCount={8}
     >
-      <Sparkles count={14} color="#B87A82" />
-      <OrnateCorners className="text-gold/35" />
+      {/* =====================================================
+          BACKGROUND IMAGE
+          File:
+          public/images/events/couplescenebg.png
+         ===================================================== */}
 
-      <div className="pointer-events-none absolute left-0 top-[18%] opacity-35 sm:left-1">
-        <PeacockFeather />
-      </div>
-      <div className="pointer-events-none absolute right-0 top-[18%] opacity-35 sm:right-1">
-        <PeacockFeather flip />
-      </div>
+      <div
+        className="pointer-events-none absolute inset-0 z-0"
+        aria-hidden="true"
+        style={{
+          backgroundImage:
+            "url('/images/events/couplescenebg.png')",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center center",
+          backgroundSize: "cover",
+        }}
+      />
+
+      {/* Soft overlay so text remains readable */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[1] bg-[#fff8ed]/10"
+        aria-hidden="true"
+      />
+
+      {/* Subtle center glow */}
+      <div
+        className="
+          pointer-events-none
+          absolute
+          left-1/2
+          top-[38%]
+          z-[2]
+          h-[45%]
+          w-[90%]
+          -translate-x-1/2
+          -translate-y-1/2
+          rounded-full
+          bg-[#fff8ed]/25
+          blur-3xl
+        "
+        aria-hidden="true"
+      />
+
+      {/* Existing decorative effects */}
+      <Sparkles count={10} color="#B87A82" />
+
+      <OrnateCorners className="z-[4] text-gold/35" />
+
+      {/* =====================================================
+          CONTENT
+         ===================================================== */}
 
       <div
         ref={ref}
-        className="relative z-10 mx-auto flex w-full max-w-lg flex-1 flex-col items-center justify-center py-2"
+        className="
+          relative
+          z-10
+          mx-auto
+          flex
+          w-full
+          max-w-xl
+          flex-1
+          flex-col
+          items-center
+          px-5
+          pt-[16%]
+          sm:px-8
+          sm:pt-[12%]
+        "
       >
-        <LotusBloom size={34} className="mb-1 text-rose-deep" />
-        <motion.p
-          className="text-eyebrow text-burgundy"
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-        >
-          {t("couple.eyebrow")}
-        </motion.p>
-        <motion.h2
-          className="text-names mt-1 mb-4 text-center font-display font-semibold text-charcoal"
-          initial={{ opacity: 0, y: 14, filter: "blur(6px)" }}
+        {/* Main wedding content */}
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: reduced ? 0 : 20,
+          }}
           animate={
             inView
-              ? { opacity: 1, y: 0, filter: "blur(0px)" }
-              : { opacity: 0, y: 14 }
+              ? {
+                  opacity: 1,
+                  y: 0,
+                }
+              : {}
           }
-          transition={{ duration: 0.7 }}
+          transition={{
+            duration: 0.8,
+            ease: "easeOut",
+          }}
+          className="
+            flex
+            w-full
+            flex-col
+            items-center
+            text-center
+          "
         >
-          {COUPLE.partner1}{" "}
-          <span className="font-normal text-rose-deep">&</span>{" "}
-          {COUPLE.partner2}
-        </motion.h2>
-
-        <div
-          aria-hidden
-          className="mb-4 h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent"
-        />
-
-        <div className="grid w-full grid-cols-2 gap-2.5 sm:gap-4">
-          <motion.figure
-            initial={{ opacity: 0, x: reduced ? 0 : -24 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ delay: 0.12, duration: 0.65 }}
-            className="relative"
+          {/* Lotus */}
+          <motion.div
+            initial={{
+              opacity: 0,
+              scale: reduced ? 1 : 0.7,
+            }}
+            animate={
+              inView
+                ? {
+                    opacity: 1,
+                    scale: 1,
+                  }
+                : {}
+            }
+            transition={{
+              duration: 0.7,
+              delay: 0.1,
+            }}
           >
-            <div className="premium-card relative overflow-hidden bg-gradient-to-b from-champagne/40 to-cream p-1.5">
-              <div className="pointer-events-none absolute inset-x-2 top-2 z-10 flex justify-between text-[10px] text-gold-deep/70">
-                <span>✦</span>
-                <span>✦</span>
-              </div>
-              <CouplePortrait
-                who="groom"
-                alt={`${COUPLE.partner1} — groom portrait placeholder`}
-                className="aspect-[3/4] w-full rounded-xl"
-                priority
-              />
-            </div>
-            <figcaption className="mt-2 text-center">
-              <p className="font-body text-[10px] font-semibold tracking-[0.22em] text-gold-deep uppercase">
+            <LotusBloom
+              size={36}
+              className="mb-3 text-rose-deep"
+            />
+          </motion.div>
+
+          {/* THE COUPLE */}
+          <motion.p
+            className="
+              font-body
+              text-[10px]
+              font-semibold
+              uppercase
+              tracking-[0.35em]
+              text-[#7b3040]
+              sm:text-xs
+            "
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{
+              duration: 0.7,
+              delay: 0.2,
+            }}
+          >
+            {t("couple.eyebrow")}
+          </motion.p>
+
+          {/* Names */}
+          <motion.h2
+            className="
+              mt-2
+              px-2
+              font-display
+              text-[2.1rem]
+              font-semibold
+              leading-tight
+              tracking-tight
+              text-[#34211f]
+              sm:text-5xl
+            "
+            initial={{
+              opacity: 0,
+              y: reduced ? 0 : 15,
+              filter: "blur(5px)",
+            }}
+            animate={
+              inView
+                ? {
+                    opacity: 1,
+                    y: 0,
+                    filter: "blur(0px)",
+                  }
+                : {
+                    opacity: 0,
+                    y: 15,
+                  }
+            }
+            transition={{
+              duration: 0.8,
+              delay: 0.25,
+            }}
+          >
+            {COUPLE.partner1}
+
+            <span className="mx-2 font-normal italic text-[#a75b67]">
+              &
+            </span>
+
+            {COUPLE.partner2}
+          </motion.h2>
+
+          {/* Gold divider */}
+          <motion.div
+            className="mt-4 flex items-center gap-3"
+            initial={{
+              opacity: 0,
+              scaleX: 0,
+            }}
+            animate={
+              inView
+                ? {
+                    opacity: 1,
+                    scaleX: 1,
+                  }
+                : {}
+            }
+            transition={{
+              duration: 0.7,
+              delay: 0.45,
+            }}
+          >
+            <span className="h-px w-12 bg-gradient-to-r from-transparent to-[#b8923e]" />
+
+            <span className="text-xs text-[#b8923e]">
+              ✦
+            </span>
+
+            <span className="h-px w-12 bg-gradient-to-l from-transparent to-[#b8923e]" />
+          </motion.div>
+
+          {/* Bride / Groom */}
+          <motion.div
+            className="
+              mt-5
+              flex
+              items-center
+              justify-center
+              gap-5
+              rounded-full
+              border
+              border-[#b8923e]/20
+              bg-[#fffaf2]/35
+              px-5
+              py-2.5
+              backdrop-blur-[2px]
+            "
+            initial={{
+              opacity: 0,
+              y: reduced ? 0 : 10,
+            }}
+            animate={
+              inView
+                ? {
+                    opacity: 1,
+                    y: 0,
+                  }
+                : {}
+            }
+            transition={{
+              duration: 0.6,
+              delay: 0.55,
+            }}
+          >
+            <div>
+              <p className="font-body text-[8px] font-semibold uppercase tracking-[0.22em] text-[#a1782f]">
                 {t("common.groom")}
               </p>
-              <p className="font-display text-lg font-medium text-charcoal sm:text-xl">
+
+              <p className="mt-0.5 font-display text-sm text-[#3b2926] sm:text-base">
                 {COUPLE.partner1}
               </p>
-            </figcaption>
-          </motion.figure>
-
-          <motion.figure
-            initial={{ opacity: 0, x: reduced ? 0 : 24 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ delay: 0.22, duration: 0.65 }}
-            className="relative"
-          >
-            <div className="premium-card relative overflow-hidden bg-gradient-to-b from-blush/50 to-cream p-1.5">
-              <div className="pointer-events-none absolute inset-x-2 top-2 z-10 flex justify-between text-[10px] text-rose-deep/70">
-                <span>✦</span>
-                <span>✦</span>
-              </div>
-              <CouplePortrait
-                who="bride"
-                alt={`${COUPLE.partner2} — bride portrait placeholder`}
-                className="aspect-[3/4] w-full rounded-xl"
-                priority
-              />
             </div>
-            <figcaption className="mt-2 text-center">
-              <p className="font-body text-[10px] font-semibold tracking-[0.22em] text-rose-deep uppercase">
+
+            <span className="text-[#b8923e]/60">✦</span>
+
+            <div>
+              <p className="font-body text-[8px] font-semibold uppercase tracking-[0.22em] text-[#a75b67]">
                 {t("common.bride")}
               </p>
-              <p className="font-display text-lg font-medium text-charcoal sm:text-xl">
+
+              <p className="mt-0.5 font-display text-sm text-[#3b2926] sm:text-base">
                 {COUPLE.partner2}
               </p>
-            </figcaption>
-          </motion.figure>
-        </div>
+            </div>
+          </motion.div>
 
-        <motion.p
-          className="mt-5 max-w-sm text-center font-display text-base font-medium text-burgundy italic sm:text-lg"
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.45 }}
-        >
-          {t("couple.forever")}
-        </motion.p>
+          {/* Forever text */}
+          <motion.p
+            className="
+              mt-5
+              max-w-xs
+              font-display
+              text-sm
+              font-medium
+              italic
+              text-[#713845]
+              sm:text-lg
+            "
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{
+              delay: 0.7,
+              duration: 0.7,
+            }}
+          >
+            {t("couple.forever")}
+          </motion.p>
+        </motion.div>
       </div>
     </Scene>
   );

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { motion, useInView } from "framer-motion";
@@ -26,16 +27,27 @@ type DayForecast = {
 
 function formatDayLabel(iso: string) {
   const d = new Date(`${iso}T12:00:00`);
+
   return d
-    .toLocaleDateString("en-GB", { day: "2-digit", month: "short" })
+    .toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+    })
     .toUpperCase();
 }
 
 export function WeatherScene() {
   const { t } = useI18n();
   const { scrollRef } = useScrollRoot();
+
   const ref = useRef<HTMLDivElement | null>(null);
-  const inView = useInView(ref, { root: scrollRef, once: true, amount: 0.12 });
+
+  const inView = useInView(ref, {
+    root: scrollRef,
+    once: true,
+    amount: 0.1,
+  });
+
   const [days, setDays] = useState<DayForecast[]>(
     WEATHER.dates.map((date, i) => ({
       date,
@@ -43,11 +55,15 @@ export function WeatherScene() {
       dayLabelKey: WEATHER.dayLabels[i],
     })),
   );
-  const [status, setStatus] = useState<"loading" | "ok" | "error">("loading");
+
+  const [status, setStatus] = useState<
+    "loading" | "ok" | "error"
+  >("loading");
 
   useEffect(() => {
     const start = WEATHER.dates[0];
     const end = WEATHER.dates[WEATHER.dates.length - 1];
+
     const url =
       `https://api.open-meteo.com/v1/forecast?latitude=${WEATHER.latitude}` +
       `&longitude=${WEATHER.longitude}` +
@@ -56,45 +72,65 @@ export function WeatherScene() {
       `&start_date=${start}&end_date=${end}`;
 
     let cancelled = false;
+
     fetch(url)
       .then((r) => {
-        if (!r.ok) throw new Error("weather failed");
+        if (!r.ok) {
+          throw new Error("weather failed");
+        }
+
         return r.json();
       })
       .then((json) => {
         if (cancelled) return;
+
         const times: string[] = json?.daily?.time ?? [];
+
         if (!times.length) {
           setStatus("error");
           return;
         }
+
         setDays(
           WEATHER.dates.map((date, i) => {
             const idx = times.indexOf(date);
-            if (idx < 0)
+
+            if (idx < 0) {
               return {
                 date,
                 label: formatDayLabel(date),
                 dayLabelKey: WEATHER.dayLabels[i],
               };
+            }
+
             return {
               date,
               label: formatDayLabel(date),
               dayLabelKey: WEATHER.dayLabels[i],
-              tempMax: json.daily.temperature_2m_max?.[idx],
-              feelsLike: json.daily.apparent_temperature_max?.[idx],
-              humidity: json.daily.relative_humidity_2m_mean?.[idx],
-              wind: json.daily.wind_speed_10m_max?.[idx],
-              precipProb: json.daily.precipitation_probability_max?.[idx],
-              code: json.daily.weather_code?.[idx],
+              tempMax:
+                json.daily.temperature_2m_max?.[idx],
+              feelsLike:
+                json.daily.apparent_temperature_max?.[idx],
+              humidity:
+                json.daily.relative_humidity_2m_mean?.[idx],
+              wind:
+                json.daily.wind_speed_10m_max?.[idx],
+              precipProb:
+                json.daily.precipitation_probability_max?.[idx],
+              code:
+                json.daily.weather_code?.[idx],
             };
           }),
         );
+
         setStatus("ok");
       })
       .catch(() => {
-        if (!cancelled) setStatus("error");
+        if (!cancelled) {
+          setStatus("error");
+        }
       });
+
     return () => {
       cancelled = true;
     };
@@ -103,136 +139,407 @@ export function WeatherScene() {
   return (
     <Scene
       id="weather"
-      className="bg-[linear-gradient(165deg,#D5E3EE_0%,#F7F1E7_42%,#F0E0D8_100%)]"
+      className="relative overflow-hidden bg-[#e7edf1]"
       petals
-      petalColors={["#D5E3EE", "#F0E0D8", "#B8944A"]}
-      petalCount={6}
+      petalColors={[
+        "#D7E3EA",
+        "#EBCFC5",
+        "#C9A96B",
+        "#D8C9C5",
+      ]}
+      petalCount={4}
     >
-      <Sparkles count={8} color="#B8944A" />
-
-      {/* Subtle cloud atmosphere */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden opacity-30">
-        <div className="absolute -left-10 top-16 h-24 w-40 rounded-full bg-white blur-2xl" />
-        <div className="absolute -right-8 top-32 h-20 w-36 rounded-full bg-white blur-2xl" />
+      {/* Background */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0"
+      >
+        <img
+          src="/images/events/weatherbg.png"
+          alt=""
+          className="h-full w-full object-cover object-center"
+        />
       </div>
 
-      {/* Temple silhouette at bottom */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-24 opacity-[0.12]"
-        style={{
-          background:
-            "linear-gradient(to top, #5A1828 0%, transparent 100%), url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 60'%3E%3Cpath d='M0 60 L0 40 L20 35 L40 25 L60 30 L80 18 L100 28 L120 15 L140 25 L160 12 L180 22 L200 8 L220 20 L240 10 L260 22 L280 14 L300 24 L320 16 L340 26 L360 18 L380 28 L400 22 L400 60 Z' fill='%235A1828'/%3E%3C/svg%3E\") center bottom / cover no-repeat",
-        }}
+      <Sparkles
+        count={6}
+        color="#B8944A"
       />
 
       <div
         ref={ref}
-        className="relative z-10 mx-auto flex w-full max-w-md flex-1 flex-col justify-center py-2"
+        className="
+          relative
+          z-10
+          mx-auto
+          flex
+          w-full
+          max-w-md
+          flex-1
+          flex-col
+          justify-center
+          px-4
+          py-4
+        "
       >
-        <header className="mb-5 text-center">
-          <p className="text-eyebrow text-powder-deep">{t("weather.eyebrow")}</p>
-          <h2 className="text-section mt-1 font-display font-semibold text-deep-brown">
+        {/* =================================================
+            HEADER
+           ================================================= */}
+
+        <motion.header
+          className="mb-4 text-center"
+          initial={{
+            opacity: 0,
+            y: 16,
+          }}
+          animate={
+            inView
+              ? {
+                  opacity: 1,
+                  y: 0,
+                }
+              : {}
+          }
+          transition={{
+            duration: 0.65,
+          }}
+        >
+          <div className="mx-auto mb-2 flex items-center justify-center gap-2">
+            <span className="h-px w-8 bg-gradient-to-r from-transparent to-[#B8944A]" />
+
+            <span className="text-[9px] text-[#B8944A]">
+              ✦
+            </span>
+
+            <span className="h-px w-8 bg-gradient-to-l from-transparent to-[#B8944A]" />
+          </div>
+
+          <p
+            className="
+              font-body
+              text-[9px]
+              font-semibold
+              uppercase
+              tracking-[0.3em]
+              text-[#587991]
+            "
+          >
+            {t("weather.eyebrow")}
+          </p>
+
+          <h2
+            className="
+              mt-1
+              font-display
+              text-[1.8rem]
+              font-semibold
+              leading-tight
+              text-[#302523]
+              sm:text-3xl
+            "
+          >
             {t("weather.title")}
           </h2>
-          <p className="mx-auto mt-2 max-w-xs text-body-readable">
+
+          <p
+            className="
+              mx-auto
+              mt-1
+              max-w-xs
+              font-body
+              text-xs
+              leading-relaxed
+              text-[#5d5653]
+            "
+          >
             {t("weather.subtitle")}
           </p>
-        </header>
+        </motion.header>
+
+        {/* =================================================
+            LOADING / ERROR
+           ================================================= */}
 
         {status === "loading" && (
-          <p className="text-center font-body text-sm font-medium text-deep-brown">
-            {t("weather.loading")}
-          </p>
+          <div className="mb-2 text-center">
+            <p className="font-body text-xs font-medium text-[#514845]">
+              {t("weather.loading")}
+            </p>
+          </div>
         )}
+
         {status === "error" && (
-          <p className="mx-auto max-w-sm text-center font-body text-sm font-medium text-deep-brown">
-            {t("weather.error")}
-          </p>
+          <div className="mb-2 text-center">
+            <p className="font-body text-xs font-medium text-[#514845]">
+              {t("weather.error")}
+            </p>
+          </div>
         )}
 
-        {/* Vertical timeline */}
-        <div className="relative mx-auto w-full max-w-sm pl-6">
-          <motion.div
-            className="absolute bottom-4 left-[0.65rem] top-4 w-[2px] origin-top bg-gradient-to-b from-antique-gold via-terracotta/60 to-antique-gold/30"
-            initial={{ scaleY: 0 }}
-            animate={inView ? { scaleY: 1 } : {}}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-          />
+        {/* =================================================
+            WEATHER CARDS
+           ================================================= */}
 
-          <ul className="space-y-6">
-            {days.map((d, i) => {
-              const has = d.tempMax != null && status === "ok";
-              const kind = conditionToKind(d.code);
-              const conditionKey = `weather.${kind === "rainPossible" ? "rainPossible" : kind}`;
+        <div className="space-y-2.5">
+          {days.map((day, index) => {
+            const hasData =
+              day.tempMax != null &&
+              status === "ok";
 
-              return (
-                <motion.li
-                  key={d.date}
-                  className="relative"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: 0.15 * i + 0.2 }}
-                >
-                  {/* Timeline node */}
-                  <span className="absolute -left-6 top-1 flex h-5 w-5 items-center justify-center rounded-full border-2 border-antique-gold bg-ivory shadow-sm">
-                    <span className="h-2 w-2 rounded-full bg-terracotta" />
-                  </span>
+            const kind = conditionToKind(day.code);
 
-                  <div className="rounded-2xl border border-antique-gold/30 bg-ivory/80 p-4 shadow-[0_8px_28px_rgba(48,35,31,0.06)] backdrop-blur-sm">
-                    <p className="font-body text-[11px] font-bold tracking-[0.2em] text-terracotta">
-                      {d.label}
+            const conditionKey = `weather.${
+              kind === "rainPossible"
+                ? "rainPossible"
+                : kind
+            }`;
+
+            return (
+              <motion.article
+                key={day.date}
+                initial={{
+                  opacity: 0,
+                  y: 25,
+                  scale: 0.97,
+                }}
+                animate={
+                  inView
+                    ? {
+                        opacity: 1,
+                        y: 0,
+                        scale: 1,
+                      }
+                    : {}
+                }
+                transition={{
+                  delay: 0.12 * index,
+                  duration: 0.5,
+                  ease: "easeOut",
+                }}
+                whileHover={{
+                  y: -3,
+                  scale: 1.01,
+                }}
+                whileTap={{
+                  scale: 0.985,
+                }}
+                className="
+                  group
+                  rounded-[18px]
+                  border
+                  border-[#B8944A]/30
+                  bg-[#FFF9F1]/90
+                  p-3
+                  shadow-[0_7px_24px_rgba(60,60,65,0.10)]
+                  backdrop-blur-[3px]
+                "
+              >
+                {/* Top */}
+                <div className="flex items-center justify-between gap-3">
+                  <div className="min-w-0">
+                    <p
+                      className="
+                        font-body
+                        text-[9px]
+                        font-bold
+                        tracking-[0.2em]
+                        text-[#BC6247]
+                      "
+                    >
+                      {day.label}
                     </p>
-                    <p className="mt-0.5 font-display text-sm font-semibold text-deep-brown">
-                      {t(d.dayLabelKey)}
-                    </p>
 
-                    {has ? (
-                      <>
-                        <div className="mt-3 flex items-center gap-3">
-                          <WeatherIllustration kind={kind} className="h-12 w-12 shrink-0" />
-                          <div>
-                            <p className="font-display text-3xl font-semibold tabular-nums text-deep-brown">
-                              {Math.round(d.tempMax!)}°
-                            </p>
-                            <p className="font-body text-xs font-medium text-deep-brown/80">
-                              {t(conditionKey)}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="mt-3 grid grid-cols-2 gap-1.5">
-                          <Stat label={t("weather.feelsLike")} value={`${Math.round(d.feelsLike ?? d.tempMax!)}°`} />
-                          <Stat label={t("weather.humidity")} value={`${Math.round(d.humidity ?? 0)}%`} />
-                          <Stat label={t("weather.wind")} value={`${Math.round(d.wind ?? 0)} km/h`} />
-                          <Stat
-                            label={t("weather.rain")}
-                            value={d.precipProb != null ? `${d.precipProb}%` : "—"}
-                          />
-                        </div>
-                      </>
-                    ) : (
-                      <p className="mt-3 font-body text-xs font-medium text-deep-brown/70">
-                        {status === "loading" ? t("common.loading") : t("weather.unavailable")}
-                      </p>
-                    )}
+                    <p
+                      className="
+                        mt-0.5
+                        truncate
+                        font-display
+                        text-[15px]
+                        font-semibold
+                        text-[#362A27]
+                      "
+                    >
+                      {t(day.dayLabelKey)}
+                    </p>
                   </div>
-                </motion.li>
-              );
-            })}
-          </ul>
+
+                  {hasData && (
+                    <motion.div
+                      animate={{
+                        y: [0, -2, 0],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                    >
+                      <WeatherIllustration
+                        kind={kind}
+                        className="h-10 w-10"
+                      />
+                    </motion.div>
+                  )}
+                </div>
+
+                {hasData ? (
+                  <>
+                    {/* Temperature row */}
+                    <div className="mt-2 flex items-center justify-between">
+                      <div className="flex items-start">
+                        <span
+                          className="
+                            font-display
+                            text-[2rem]
+                            font-semibold
+                            leading-none
+                            tabular-nums
+                            text-[#312725]
+                          "
+                        >
+                          {Math.round(day.tempMax!)}
+                        </span>
+
+                        <span className="ml-0.5 mt-0.5 font-display text-sm text-[#6B7173]">
+                          °
+                        </span>
+                      </div>
+
+                      <p
+                        className="
+                          max-w-[150px]
+                          text-right
+                          font-body
+                          text-[10px]
+                          font-medium
+                          leading-tight
+                          text-[#5B5552]
+                        "
+                      >
+                        {t(conditionKey)}
+                      </p>
+                    </div>
+
+                    {/* Compact stats row */}
+                    <div
+                      className="
+                        mt-2
+                        grid
+                        grid-cols-4
+                        divide-x
+                        divide-[#B8944A]/15
+                        rounded-xl
+                        bg-[#EEF3F5]/65
+                        px-1
+                        py-1.5
+                      "
+                    >
+                      <CompactStat
+                        label={t("weather.feelsLike")}
+                        value={`${Math.round(
+                          day.feelsLike ??
+                            day.tempMax!,
+                        )}°`}
+                      />
+
+                      <CompactStat
+                        label={t("weather.humidity")}
+                        value={`${Math.round(
+                          day.humidity ?? 0,
+                        )}%`}
+                      />
+
+                      <CompactStat
+                        label={t("weather.wind")}
+                        value={`${Math.round(
+                          day.wind ?? 0,
+                        )}`}
+                      />
+
+                      <CompactStat
+                        label={t("weather.rain")}
+                        value={
+                          day.precipProb != null
+                            ? `${day.precipProb}%`
+                            : "—"
+                        }
+                      />
+                    </div>
+                  </>
+                ) : (
+                  <p className="mt-2 font-body text-[11px] text-[#655C58]">
+                    {status === "loading"
+                      ? t("common.loading")
+                      : t("weather.unavailable")}
+                  </p>
+                )}
+              </motion.article>
+            );
+          })}
         </div>
+
+        {/* Bottom hint */}
+        <motion.div
+          className="mt-3 flex items-center justify-center gap-2"
+          initial={{ opacity: 0 }}
+          animate={
+            inView
+              ? {
+                  opacity: 1,
+                }
+              : {}
+          }
+          transition={{
+            delay: 0.65,
+          }}
+        >
+          <span className="h-px w-8 bg-gradient-to-r from-transparent to-[#B8944A]/60" />
+
+          <span className="text-[8px] text-[#B8944A]">
+            ✦
+          </span>
+
+          <span className="h-px w-8 bg-gradient-to-l from-transparent to-[#B8944A]/60" />
+        </motion.div>
       </div>
     </Scene>
   );
 }
 
-function Stat({ label, value }: { label: string; value: string }) {
+function CompactStat({
+  label,
+  value,
+}: {
+  label: string;
+  value: string;
+}) {
   return (
-    <div className="rounded-lg bg-soft-sand/60 px-2 py-1.5">
-      <p className="font-body text-[9px] font-medium uppercase tracking-wide text-deep-brown/70">
+    <div className="px-1 text-center">
+      <p
+        className="
+          font-body
+          text-[7px]
+          font-medium
+          uppercase
+          tracking-wide
+          text-[#746D68]
+        "
+      >
         {label}
       </p>
-      <p className="font-body text-xs font-semibold text-deep-brown">{value}</p>
+
+      <p
+        className="
+          mt-0.5
+          font-body
+          text-[10px]
+          font-semibold
+          leading-none
+          text-[#403633]
+        "
+      >
+        {value}
+      </p>
     </div>
   );
 }

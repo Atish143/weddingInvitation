@@ -71,7 +71,7 @@
     "saturday": "Saturday",
     "sunday": "Sunday",
     "greenMorning": {
-      "title": "Green Morning",
+      "title": "Gaajula Veduka",
       "subtitle": "A morning wrapped in tradition",
       "description": "A beautiful morning of traditions, blessings, green hues and joyful celebrations.",
       "dressCode": "Green Outfit + Bangles",
@@ -116,8 +116,8 @@
     "address": "NV Convention Hall, Hanamkonda, Telangana"
   },
   "stay": {
-    "eyebrow": "Accommodation",
-    "address": "Hotel Varahi, Warangal, Telangana",
+    "eyebrow": "Come Celebrate With Us at",
+    "address": "Hotel Vaarahi, Warangal, Telangana",
     "photoPlaceholder": "Hotel photo placeholder"
   },
   "weather": {

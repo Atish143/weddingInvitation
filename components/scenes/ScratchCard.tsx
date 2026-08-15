@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import { playRevealSound, playScratchSound } from "@/lib/sounds";
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { playRevealSound, playScratchSound } from '@/lib/sounds';
 
 type Props = {
   onReveal: () => void;
@@ -15,10 +15,10 @@ type Props = {
 export function ScratchCard({
   onReveal,
   revealed,
-  overlayLabel = "✨ Scratch to Reveal",
+  overlayLabel = '✨ Scratch to Reveal',
   children,
-  className = "",
-  heightClass = "h-40 sm:h-44",
+  className = '',
+  heightClass = 'h-40 sm:h-44',
 }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const drawing = useRef(false);
@@ -30,17 +30,22 @@ export function ScratchCard({
   const paintCover = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     if (!ctx) return;
     const { width, height } = canvas;
 
     const grad = ctx.createLinearGradient(0, 0, width, height);
-    grad.addColorStop(0, "#9A7B3C");
-    grad.addColorStop(0.25, "#E6D4A8");
-    grad.addColorStop(0.5, "#C4A35A");
-    grad.addColorStop(0.75, "#F0E0B8");
-    grad.addColorStop(1, "#9A7B3C");
-    ctx.globalCompositeOperation = "source-over";
+
+    grad.addColorStop(0, '#D8BC82');
+    grad.addColorStop(0.2, '#F2E2BE');
+    grad.addColorStop(0.5, '#E7CE96');
+    grad.addColorStop(0.8, '#F5E7C9');
+    grad.addColorStop(1, '#CBA866');
+
+    // ctx.globalCompositeOperation = 'source-over';
+    // ctx.fillStyle = grad;
+    // ctx.fillRect(0, 0, width, height);
+    ctx.globalCompositeOperation = 'source-over';
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, width, height);
 
@@ -56,18 +61,20 @@ export function ScratchCard({
       );
       ctx.fill();
     }
-
-    ctx.strokeStyle = "rgba(74,58,53,0.25)";
+    ctx.strokeStyle = 'rgba(126,91,40,0.25)';
     ctx.lineWidth = 3;
     ctx.strokeRect(8, 8, width - 16, height - 16);
-    ctx.strokeStyle = "rgba(255,255,255,0.35)";
+
+    ctx.strokeStyle = 'rgba(255,255,255,0.45)';
     ctx.lineWidth = 1;
     ctx.strokeRect(14, 14, width - 28, height - 28);
 
-    ctx.fillStyle = "#4A3A35";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    const lines = overlayLabel.split("\n");
+    ctx.fillStyle = '#5A4635';
+
+    // ctx.fillStyle = '#4A3A35';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    const lines = overlayLabel.split('\n');
     ctx.font = `500 ${Math.min(15, Math.max(12, width / 22))}px Jost, sans-serif`;
     lines.forEach((line, i) => {
       ctx.fillText(
@@ -102,7 +109,7 @@ export function ScratchCard({
 
   useEffect(() => {
     if (revealed && canvasRef.current) {
-      const ctx = canvasRef.current.getContext("2d");
+      const ctx = canvasRef.current.getContext('2d');
       ctx?.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
     }
   }, [revealed]);
@@ -110,7 +117,7 @@ export function ScratchCard({
   const sampleCleared = () => {
     const canvas = canvasRef.current;
     if (!canvas) return 0;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     if (!ctx) return 0;
     const { data } = ctx.getImageData(0, 0, canvas.width, canvas.height);
     let cleared = 0;
@@ -125,12 +132,12 @@ export function ScratchCard({
     if (revealedRef.current) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     if (!ctx) return;
     const rect = canvas.getBoundingClientRect();
     const x = ((clientX - rect.left) / rect.width) * canvas.width;
     const y = ((clientY - rect.top) / rect.height) * canvas.height;
-    ctx.globalCompositeOperation = "destination-out";
+    ctx.globalCompositeOperation = 'destination-out';
     ctx.beginPath();
     ctx.arc(x, y, Math.max(18, canvas.width * 0.045), 0, Math.PI * 2);
     ctx.fill();
@@ -141,7 +148,7 @@ export function ScratchCard({
       lastScratch.current = now;
     }
 
-    if (sampleCleared() >= 0.7) {
+    if (sampleCleared() >= 0.35) {
       playRevealSound();
       onReveal();
     }
@@ -159,12 +166,12 @@ export function ScratchCard({
           ref={canvasRef}
           className="absolute inset-0 z-10 h-full w-full touch-none cursor-crosshair"
           style={{ opacity: ready ? 1 : 0 }}
-          onPointerDown={(e) => {
+          onPointerDown={e => {
             drawing.current = true;
             canvasRef.current?.setPointerCapture(e.pointerId);
             scratchAt(e.clientX, e.clientY);
           }}
-          onPointerMove={(e) => {
+          onPointerMove={e => {
             if (!drawing.current) return;
             scratchAt(e.clientX, e.clientY);
           }}
