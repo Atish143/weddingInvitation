@@ -21,7 +21,7 @@ export function SectionNav() {
     const sections = SCENES.map((s) =>
       document.getElementById(`scene-${s.id}`),
     ).filter(Boolean) as HTMLElement[];
-
+// hh
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries
