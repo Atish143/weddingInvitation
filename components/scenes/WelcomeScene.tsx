@@ -180,11 +180,7 @@ export function WelcomeScene() {
       {/* ============================================================
           CONTENT
          ============================================================ */}
-      {/* <h1 className="text-names mt-3 font-display text-[#54251E] drop-shadow-[0_2px_3px_rgba(255,245,210,0.8)]">
-                With the Divine blessing
-                <span className="text-[#A87524]">Of</span>{" "}
-                Lord Venkatesha
-              </h1> */}
+ 
       <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-4 text-center">
         <motion.h1
           className="text-names mb-8 -mt-2 font-display text-[#54251E] drop-shadow-[0_2px_3px_rgba(255,245,210,0.8)] sm:-mt-4"
