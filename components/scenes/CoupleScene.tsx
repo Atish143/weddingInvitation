@@ -287,25 +287,28 @@ export function CoupleScene() {
             }}
           >
             <div>
-              <p className="font-body text-[8px] font-semibold uppercase tracking-[0.22em] text-[#a1782f]">
-                {t("common.groom")}
+                 <p className="font-body text-[8px] font-semibold uppercase tracking-[0.22em] text-[#a75b67]">
+                {t("common.bride")}
               </p>
 
               <p className="mt-0.5 font-display text-sm text-[#3b2926] sm:text-base">
-                {COUPLE.partner1}
+            {COUPLE.partner1}
               </p>
+            
             </div>
 
             <span className="text-[#b8923e]/60">✦</span>
 
             <div>
-              <p className="font-body text-[8px] font-semibold uppercase tracking-[0.22em] text-[#a75b67]">
-                {t("common.bride")}
+                <p className="font-body text-[8px] font-semibold uppercase tracking-[0.22em] text-[#a1782f]">
+                {t("common.groom")}
               </p>
 
               <p className="mt-0.5 font-display text-sm text-[#3b2926] sm:text-base">
-                {COUPLE.partner2}
+              
+                      {COUPLE.partner2}
               </p>
+           
             </div>
           </motion.div>
 
